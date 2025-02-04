@@ -22,6 +22,7 @@ gem 'tzinfo-data', platforms: %i[mswin mswin64 mingw x64_mingw jruby]
 group :development, :test do
   gem 'debug', platforms: %i[mri mswin mswin64 mingw x64_mingw]
   gem 'factory_bot_rails'
+  gem 'faker'
   gem 'mysql2', '~> 0.5'
   gem 'rspec-rails', '~> 6.1.0'
   gem 'spring-commands-rspec'
