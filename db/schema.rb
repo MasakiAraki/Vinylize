@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_22_030836) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_09_075900) do
+  create_table "artists", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "discogs_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "genres", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -27,4 +40,25 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_22_030836) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vinyls", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "artist_id", null: false
+    t.bigint "genre_id"
+    t.string "title"
+    t.string "catalog_no"
+    t.string "label"
+    t.string "country"
+    t.string "year"
+    t.string "notes"
+    t.string "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_id"], name: "index_vinyls_on_artist_id"
+    t.index ["genre_id"], name: "index_vinyls_on_genre_id"
+    t.index ["user_id"], name: "index_vinyls_on_user_id"
+  end
+
+  add_foreign_key "vinyls", "artists"
+  add_foreign_key "vinyls", "genres"
+  add_foreign_key "vinyls", "users"
 end
