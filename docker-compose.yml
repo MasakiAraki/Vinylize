@@ -12,7 +12,7 @@ services:
     stdin_open: true
 
   database:
-    image: postgres:13.5
+    image: postgres:16.4
     ports:
       - "5432:5432"
     env_file:
