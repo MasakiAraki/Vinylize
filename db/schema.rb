@@ -10,21 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_09_075900) do
-  create_table "artists", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+ActiveRecord::Schema[7.1].define(version: 2025_02_25_081139) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "artists", force: :cascade do |t|
     t.integer "discogs_id"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "genres", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "genres", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.integer "age"
@@ -40,7 +43,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_09_075900) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "vinyls", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "vinyl_artists", force: :cascade do |t|
+    t.bigint "vinyl_id", null: false
+    t.bigint "artist_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_id"], name: "index_vinyl_artists_on_artist_id"
+    t.index ["vinyl_id"], name: "index_vinyl_artists_on_vinyl_id"
+  end
+
+  create_table "vinyls", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "artist_id", null: false
     t.bigint "genre_id"
@@ -58,6 +70,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_09_075900) do
     t.index ["user_id"], name: "index_vinyls_on_user_id"
   end
 
+  add_foreign_key "vinyl_artists", "artists"
+  add_foreign_key "vinyl_artists", "vinyls"
   add_foreign_key "vinyls", "artists"
   add_foreign_key "vinyls", "genres"
   add_foreign_key "vinyls", "users"
