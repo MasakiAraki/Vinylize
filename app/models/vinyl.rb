@@ -8,4 +8,5 @@ class Vinyl < ApplicationRecord
   has_many :vinyl_artists, dependent: :destroy
   has_many :artists, through: :vinyl_artists
 
+  validates :title, presence: true
 end
