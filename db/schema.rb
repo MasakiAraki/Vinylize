@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_25_081139) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_15_145538) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,7 +54,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_25_081139) do
 
   create_table "vinyls", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "artist_id", null: false
     t.bigint "genre_id"
     t.string "title"
     t.string "catalog_no"
@@ -65,14 +64,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_25_081139) do
     t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["artist_id"], name: "index_vinyls_on_artist_id"
     t.index ["genre_id"], name: "index_vinyls_on_genre_id"
     t.index ["user_id"], name: "index_vinyls_on_user_id"
   end
 
   add_foreign_key "vinyl_artists", "artists"
   add_foreign_key "vinyl_artists", "vinyls"
-  add_foreign_key "vinyls", "artists"
   add_foreign_key "vinyls", "genres"
   add_foreign_key "vinyls", "users"
 end
