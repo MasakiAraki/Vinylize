@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
+require 'faker'
+
 FactoryBot.define do
   factory :vinyl_artist do
-    vinyl { nil }
-    artist { nil }
+    association :vinyl
+    association :artist
   end
 end

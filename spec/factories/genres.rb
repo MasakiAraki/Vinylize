@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
+require 'faker'
+
 FactoryBot.define do
   factory :genre do
-    name { "MyString" }
+    name { Faker::Music.genre }
   end
 end
